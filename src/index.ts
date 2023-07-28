@@ -3,12 +3,16 @@ import express from 'express';
 import cors from 'cors';
 import  { Server } from 'socket.io';
 // import setupSocket from './socket';
-import http from 'http';
+import { createServer } from "http";
 
 const app = express();
-const server = http.createServer(app);
-const io = new Server(server);
+const httpServer = createServer(app);
 
+// Middleware
+app.use(cors());
+
+
+const io = new Server(httpServer, { /* options */ });
 io.on('connection', (socket) => {
   console.log('A user connected');
 
@@ -17,8 +21,7 @@ io.on('connection', (socket) => {
   });
 });
 
-// Middleware
-app.use(cors());
+
 
 
 
@@ -35,7 +38,6 @@ const PORT  = process.env.PORT || 8080
 
 
 
-
-app.listen( PORT , () => {
+httpServer.listen( PORT , () => {
   console.log(`Server is running on port ${PORT}`);
 });
