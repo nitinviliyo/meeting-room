@@ -14,7 +14,7 @@ app.use(cors());
 
 const io = new Server(httpServer, { 
     cors:{
-        origin:'*'
+        origin:'https://e741-183-87-192-251.ngrok-free.app'
     }
  });
 io.on('connection', (socket) => {
