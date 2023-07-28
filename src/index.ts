@@ -12,7 +12,11 @@ const httpServer = createServer(app);
 app.use(cors());
 
 
-const io = new Server(httpServer, { /* options */ });
+const io = new Server(httpServer, { 
+    cors:{
+        origin:'*'
+    }
+ });
 io.on('connection', (socket) => {
   console.log('A user connected');
 
